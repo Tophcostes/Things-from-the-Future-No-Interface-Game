@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'twilio-ruby'
 
+
 configure :development do
 	require 'dotenv'
 	Dotenv.load
@@ -12,17 +13,25 @@ count = 0
 time = Time.now
 
 #greeting array step 2
-empty_array = []
-geetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
-if time.hour > 10
-	greeting = ["Moring,"]
-else
-	greeting = ["Hello!", "Hope all is well!","Salutations,"]
+def greetings
+greetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
 end
 
-empty_array = []
-LAUGH = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I don't get it either"]
+def error_response
+  error_prompt = ["Sorry, I didn't get that.", "Hmm I don't know that word."].sample
+  error_prompt + "" + get_commands
+end
 
+def get_commands
+  error_prompt = [" I know how to:", "You can say:", "Try asking:"].sample
+  return error_prompt + COMMANDS
+end
+
+COMMANDS = " who, what, where, when or why."
+
+def laugh
+laugh = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I don't get it either"]
+end
 
 
 get '/signup/:code' do
@@ -33,6 +42,11 @@ get '/signup/:code' do
 	end
 end
 
+if time.hour > 10
+	greeting = ["Moring,"]
+else
+	greeting = ["Hello!", "Hope all is well!","Salutations,"]
+end
 
 post '/signup/' do
 	session['first_name'] = params['first_name']
@@ -54,42 +68,6 @@ post '/signup/' do
 	end
 end
 
-
-get "/sms/incoming" do
-	session["counter"] ||= 1
-	body = params[:Body] || ""
-	sender = params[:From] || ""
-
-	if session["counter"] == 1
-		message = "Thanks for your first message. From #{sender} saying #{body}"
-		media = nil
-	else
-		message = determine_response "body"
-		media = nil
-
-
-		# Build a twilio response object
-		twiml = Twilio::TwiML::MessagingResponse.new do |r|
-			r.message do |m|
-
-				# add the text of the response
-				m.body( determine_response params["body"] )
-
-			end
-		end
-	end
-
-
-	# increment the session counter
-	session["counter"] += 1
-
-	# send a response to twilio
-	content_type 'text/xml'
-	twiml.to_s
-
-end
-
-
 get '/signup' do
 	"Text your name and number to begin"
 end
@@ -97,7 +75,7 @@ end
 get '/signup/:first_name/:number' do
 	session['first_name'] = params['first_name']
 	session['number'] = params['number']
-	"Enter your name: " + params["first_name"] + " and your number: " + params["number"]
+	"Your enter your name: " + params["first_name"] + " and your number: " + params["number"]
 end
 
 get '/' do
@@ -112,7 +90,7 @@ get '/about' do
 	if session[:first_name]
 		greetings.sample + "Good to see you again" + session[:first_name]
 	else
-		"My app makes the design process easier. <br> Total visits: " + session["visits"].to_s + " as of " + time.strftime("%A %B %d, %Y %H:%M").to_s
+		"My app makes the design process easier.\n Total visits: " + session["visits"].to_s + " as of " + time.strftime("%A %B %d, %Y %H:%M").to_s
 	end
 
 end
@@ -125,7 +103,6 @@ end
 
 
 get '/test/conversation' do
-
 	if params[:Body].nil? and params[:From].nil?
 		return "Please send your message and phone number."
 	elsif params[:Body].nil?
@@ -138,8 +115,34 @@ get '/test/conversation' do
 end
 
 
+get "/sms/incoming" do
+	session["counter"] ||= 0
+  count = session["counter"]
+	body = params[:Body] || ""
+	sender = params[:From] || ""
+
+	# if session["counter"] == 1
+	# 	message = "Thanks for your first message. From #{sender} saying #{body}"
+	# 	media = nil
+	# else
+		message = determine_response body
+		media = nil
+
+
+		# Build a twilio response object
+		twiml = Twilio::TwiML::MessagingResponse.new do |r|
+			r.message do |m|
+		  	m.body(message)
+			end
+		end
+	session["counter"] += 1
+
+	content_type 'text/xml'
+	twiml.to_s
+
+end
+
 def determine_response body
-	body = params[body].to_s
 	body = body.downcase.strip
 
 	if body == "hi"
@@ -155,18 +158,29 @@ def determine_response body
 	elsif body== "why"
 		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
 	elsif body== "joke"
-		array_of_lines = IO.readlines("jokes.txt")
-		message = array_of_lines.sample +"<br>"+ LAUGH.sample.to_s
-	elsif body== "facts"
-		array_of_lines = IO.readlines("facts.txt")
-		message = array_of_lines.sample +"<br>" + "Hard to believe I know"
+		joke_doc = IO.readlines("jokes.txt")
+		message = joke_doc.sample + "<br/>" + laugh.sample
+	elsif body== "future"
+		futures_examples = IO.readlines("futures_arc.txt")
+		terrain_examples = IO.readlines("terrain.txt")
+		object_examples = IO.readlines("object.txt")
+		mood_examples = IO.readlines("mood.txt")
+		message = futures_examples.sample + terrain_examples.sample + object_examples.sample + mood_examples.sample
+
+		# +"\n"+ laugh.sample
+		# elsif body== "facts"
+		# 	array_of_lines = IO.readlines("facts.txt")
+		# 	message = array_of_lines.sample\n + "Hard to believe I know"
 	elsif body== "Y"
 		message = "try asking who, what, where, when, why, or just say hi"
+		# else
+		# 	message = "try asking who, what, where, when, why, or just say hi"
 	else
-		message = "try asking who, what, where, when, why, or just say hi"
+	 message = "try asking who, what, where, when, why, or just say hi"
 	end
-
 end
+
+
 
 get "/help" do
 	"Send 'Y' if you need some help."
@@ -189,21 +203,6 @@ get '/test/conversation/:body/:from' do
 		return "Ooops something"
 	end
 end
-
-
-get '/test/conversation' do
-
-	if params[:Body].nil? and params[:From].nil?
-		return "Please send your message and phone number."
-	elsif params[:Body].nil?
-		return "What are you trying to say"
-	elsif params[:From].nil?
-		return "Please enter your phone number."
-	else
-		return determine_response params[:body]
-	end
-end
-
 
 get '/test/conversation/:body' do
 	determine_response params[:body]

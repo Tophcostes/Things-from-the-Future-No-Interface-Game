@@ -159,7 +159,7 @@ def determine_response body
 		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
 	elsif body== "joke"
 		joke_doc = IO.readlines("jokes.txt")
-		message = joke_doc.sample + \n + laugh.sample
+		message = joke_doc.sample + "\n" + laugh.sample
 	elsif body== "future"
 		# futures_examples = IO.readlines("futures_arc.txt")
 		terrain_examples = IO.readlines("terrain.txt")

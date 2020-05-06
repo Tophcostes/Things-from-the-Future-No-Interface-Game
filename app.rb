@@ -156,7 +156,7 @@ def determine_response body
 	elsif body== "when"
 		message = "I was made in spring 2020"
 	elsif body== "why"
-		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
+		message = "I was made because there are so\nmany design processes and choosing the right one can be a challenge"
 	elsif body== "joke"
 		joke_doc = IO.readlines("jokes.txt")
 		message = joke_doc.sample + "\n" + laugh.sample
@@ -165,7 +165,9 @@ def determine_response body
 		terrain_examples = IO.readlines("terrain.txt")
 		object_examples = IO.readlines("object.txt")
 		mood_examples = IO.readlines("mood.txt")
-		message = "\r\n In a " + mood_examples.sample + " future, there is a " + object_examples.sample + " related to " + terrain_examples.sample + "what is it?"
+		message = "In a " + mood_examples.sample + " future,
+		 there is a " + object_examples.sample +
+		 " related to " + terrain_examples.sample + "what is it?"
 
 		# +"\n"+ laugh.sample
 		# elsif body== "facts"

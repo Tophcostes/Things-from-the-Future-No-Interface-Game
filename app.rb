@@ -156,7 +156,7 @@ def determine_response body
 	elsif body== "when"
 		message = "I was made in spring 2020"
 	elsif body== "why"
-		message = "I was\nmade because there are so\nmany design processes and choosing the right one can be a challenge"
+		message = "\nI wasmade because there are so\nmany design processes and choosing the right one can be a challenge"
 	elsif body== "joke"
 		joke_doc = IO.readlines("jokes.txt")
 		message = joke_doc.sample + "\n" + laugh.sample

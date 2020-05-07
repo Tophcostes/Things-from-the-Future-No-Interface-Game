@@ -256,21 +256,22 @@ Text the letter (C) and I’ll get to work
 				terrain_examples = IO.readlines("terrain.txt")
 				object_examples = IO.readlines("object.txt")
 				mood_examples = IO.readlines("mood.txt")
-				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "what is it?"
+				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "what is it?
+(B) to go back
+(L) learn more."
 
 		elsif body== "s"
 			message = "How would a service help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + negatives.sample +	" and "  + increasing.sample +  positives.sample + " Unline " + companies.sample + " Wow, that’s one of my best yet. While you take it all in, if you need another one, just text the letter (C)
 (B) to go back
 (L) learn more."
 elsif body== "i"
-			message = "________ {users}needs to ________ {action}  because_________ {insight}
-			If you need another one, just text the letter (I)
-			(B) to go back
-			(L) learn more.	"
-		elsif body== "c"
-			message = "How would a service " + product_service.sample + " Help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + negatives.sample +	" and "  + increasing.sample +  positives.sample + ". Unline" + companies.sample + " Wow, that’s one of my best yet. While you take it all in, if you need another one, just text the letter (C)
+			message = "________ {users}needs to ________ {action}  because_________ {insight} If you need another one, just text the letter (I)
 (B) to go back
-(L) learn more."
+(L) learn more.	"
+		elsif body== "c"
+			message = "How would a " + product_service.sample + " Help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " +  positives.sample + ". Unlike" + companies.sample + ". Wow, that’s one of my best yet. I'll let you take it all in, if you need another one, just text the letter (C)
+			(B) to go back
+			(L) learn more."
 
 
 

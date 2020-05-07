@@ -12,9 +12,64 @@ enable :sessions
 count = 0
 time = Time.now
 
-#greeting array step 2
+
 def greetings
 greetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
+end
+
+def product_service
+product_service = ["service,", "product,"]
+end
+
+def users_segement
+ users_segement = ["teens", "elderly", "scholars", "drag queens", "plain janes", "average joes", "tesla owners"]
+end
+
+def action
+action = ["be free", "access data", "learn", "visualize", "invest", "move faster", "explore"]
+end
+
+ def product_service
+product_service = ["service", "product","future"]
+end
+
+def limits
+product_service = ["reducing", "limiting"]
+end
+
+def negatives
+product_service = ["waste", "heartbreak"]
+end
+
+def increasing
+increasing = ["growing", "expanding"]
+end
+
+def positives
+increasing = ["happiness", "green energy"]
+end
+
+def compandies
+companies = ["Slack", "Uber", "Apple"]
+
+def sarcasm
+sarcasm = ["Wow.", "Exciting.", "I'm Excited.", "Joy."]
+end
+
+def challenge_sarcasm
+challenge_sarcasm = ["Yikes,", "Ooof,", "Muhahaha,", "Its your funeral,"]
+end
+
+def back_keywords body
+back_keywords = ["2", "B"]
+end
+
+def start_keywords body
+start_keywords = ["start", "new start", "restart"]
+end
+
+def learn_keywords body
+	learn_keywords = ["3", "L"]
 end
 
 def error_response
@@ -27,7 +82,7 @@ def get_commands
   return error_prompt + COMMANDS
 end
 
-COMMANDS = " who, what, where, when or why."
+# COMMANDS = " who, what, where, when or why."
 
 def laugh
 laugh = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I don't get it either"]
@@ -77,6 +132,7 @@ get '/about' do
 	session["visits"] ||= 0 # Set the session to 0 if it hasn't been set before
 	session["visits"] = session["visits"] + 1  # adds one to the current value (increments)
 
+
 	if session[:first_name]
 		greetings.sample + "Good to see you again" + session[:first_name]
 	else
@@ -107,96 +163,145 @@ end
 
 get "/sms/incoming" do
 	session["counter"] ||= 0
-	count = session["counter"]
+  count = session["counter"]
 	body = params[:Body] || ""
 	sender = params[:From] || ""
 
 	# if session["counter"] == 1
 	# 	message = "Thanks for your first message. From #{sender} saying #{body}"
 	# 	media = nil
-	if body == "test"
-		message = "This is Test"
-	else
-		message = determine_response body, sender
+	# else
+		message = determine_response body
 		media = nil
 
 
 		# Build a twilio response object
 		twiml = Twilio::TwiML::MessagingResponse.new do |r|
 			r.message do |m|
-				m.body(message)
+		  	m.body(message)
 			end
 		end
-		session["counter"] += 1
+	session["counter"] += 1
 
-		content_type 'text/xml'
-		twiml.to_s
+	content_type 'text/xml'
+	twiml.to_s
 
-	end
 end
 
-def determine_response body, sender
-	body = body.downcase.strip
+	def determine_response body
+		body = body.downcase.strip
 
-	if body == "hi"
-		message = greetings.sample + "I make the design process easier"
-	elsif body == "who"
-		message = "This is a bot to help you pick a design process"
-	elsif body== "what"
-		message = "You can ask me what design process to use"
-	elsif body== "where"
-		message = "I live in cyberspace"
-	elsif body== "when"
-		message = "I was made in spring 2020"
-	elsif body== "why"
-		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
-	elsif body== "joke"
-		joke_doc = IO.readlines("jokes.txt")
-		message = joke_doc.sample + "\n" + laugh.sample
+		if body == "hi"
+			message = greetings.sample + "I make the design process easier"
+		elsif body == "who"
+			message = "This is a bot to help you pick a design process"
+		elsif body== "what"
+			message = "You can ask me what design process to use"
+		elsif body== "where"
+			message = "I live in cyberspace"
+		elsif body== "when"
+			message = "I was made in spring 2020"
+		elsif body== "why"
+			message = "I was made because there are so many design processes and choosing the right one can be a challenge"
+		elsif body== "joke"
+			joke_doc = IO.readlines("jokes.txt")
+			message = joke_doc.sample + "\n" + laugh.sample
 
-		# --------------madlib bot flow
 
-	elsif body== "start" or "restart"
-		send_sms_to sender, greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
-		sleep(1)
-		message = "What can I help you with?\n
-		(1) Generate a random design idea?\n
-		(2) Use a specific design ideation framework?\n
-		(3) See the sources page?\n
-		(H) Any time you need to come back here \n
-		(?) learn more."
+		elsif body== "start" or body== "new start" or body== "restart"
+			message = greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation.\nWhat can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
+		elsif body== "home"
+			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
+
+		elsif body== "1"
+			message = sarcasm.sample + "You must really trust me or you’re very desperate, either way, I can help.\n Text the letter (C) and I’ll get to work \n(Home) Any time you need to come start at the beginning. \h(L) learn more. "
+		elsif body== "b" or body== "3"
+			message = "What kinda of design would you like to explore today? Text one of the following words:
+	(Future) to generate a new scenarios for the soon to be.
+	(Service) to create a service design statement
+	(Interaction) to start with an idea to help define your design thingking
+	(Challenge) If you’re feeling brave or lazy, I’ll pick a one for you :-)
+	(Home) Any time you need to come start at the beginning."
+elsif body== "3" or body== "l"
+			message = "All original material can be found at:
+	http://www.practicalservicedesign.com/
+	http://situationlab.org/futurething-print-and-play-edition/
+	https://www.interaction-design.org/literature/article/stage-2-in-the-design-thinking-process-define-the-problem-and-interpret-the-results
+	(Home) Any time you need to come start at the beginning."
 	elsif body== "future"
-		# futures_examples = IO.readlines("futures_arc.txt")
-		terrain_examples = IO.readlines("terrain.txt")
-		object_examples = IO.readlines("object.txt")
-		mood_examples = IO.readlines("mood.txt")
-		message = "In a " + mood_examples.sample + " future,
-		there is a " + object_examples.sample +
-		" related to " + terrain_examples.sample + "what is it?"
+			message = sarcasm.sample + "The Thing From the Future is tool used for ideating ideas for futuring and design futures.
+			Text the letter (F) when you want to start
+	    (B) to go back
+	    (L) learn more."
+		elsif body== "service"
+			message = sarcasm.sample + "Services are notoriously complex, but having a framework for the service can really help.
+			Text the letter (S) when you want to start
+	    (B) to go back
+	    (L) learn more."
+		elsif body== "interaction"
+			message = sarcasm.sample + "Design thinking is one or the more well known design process, one step is defining the problem. While there are a few ways to who this, starting with a frame work is always helpful!
+			Text the letter (I) when you want to start
+	    (B) to go back
+	    (L) learn more."
+		elsif body== "challenge"
+			message = challenge_sarcasm.sample + "you must really trust me or you’re very desperate, either way, I can help.
+			Text the letter (C) and I’ll get to work
+			(B) to go back
+			(L) learn more."
+		elsif body== "f"
+				terrain_examples = IO.readlines("terrain.txt")
+				object_examples = IO.readlines("object.txt")
+				mood_examples = IO.readlines("mood.txt")
+				message = "In a " + mood_examples.sample + " future,
+				 there is a " + object_examples.sample +
+				 " related to " + terrain_examples.sample + "what is it?"
+		elsif body== "s"
+			message = "How would a service help " + users_segement.sample +
+	"Who want to " + action.sample + "by" + limts.sample + negatives.sample +	"and"  + increasing.sample +  positives.sample +
+	"Unline" + compandies.sample +
+	"Wow, that’s one of my best yet. While you take it all in,
+	if you need another one, just text the letter (C)
+	(B) to go back
+	(L) learn more."
+elsif body== "i"
+			message = "________ {users}needs to ________ {action}  because_________ {insight}
+			If you need another one, just text the letter (I)
+			(B) to go back
+			(L) learn more.	"
+		elsif body== "c"
+			message = "How would a service" + product_service.sample + "Help " + users_segement.sample +
+	"Who want to " + action.sample + "by" + limts.sample + negatives.sample +	"and"  + increasing.sample +  positives.sample +
+	"Unline" + compandies.sample +
+	"Wow, that’s one of my best yet. While you take it all in,
+	if you need another one, just text the letter (C)
+	(B) to go back
+	(L) learn more."
 
-		# +"\n"+ laugh.sample
-		# elsif body== "facts"
-		# 	array_of_lines = IO.readlines("facts.txt")
-		# 	message = array_of_lines.sample\n + "Hard to believe I know"
-	elsif body== "Y"
-		message = "try asking who, what, where, when, why, or just say hi"
-	else
-		message = "try asking who, what, where, when, why, or just say hi"
+
+
+
+		# elsif body== "future"
+		# 	terrain_examples = IO.readlines("terrain.txt")
+		# 	object_examples = IO.readlines("object.txt")
+		# 	mood_examples = IO.readlines("mood.txt")
+		# 	message = "In a " + mood_examples.sample + " future,
+		# 	 there is a " + object_examples.sample +
+		# 	 " related to " + terrain_examples.sample + "what is it?"
+
+			# +"\n"+ laugh.sample
+			# elsif body== "facts"
+			# 	array_of_lines = IO.readlines("facts.txt")
+			# 	message = array_of_lines.sample\n + "Hard to believe I know"
+		elsif body== "Y"
+			message = "try asking who, what, where, when, why, or just say hi"
+
+		else
+		 message = "try asking text (start) or (home)"
+		end
 	end
-
 end
-​
 
 
-
-def send_sms_to send_to, message
- client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
- client.api.account.messages.create(
-   from: ENV["TWILIO_FROM"],
-   to: send_to,
-   body: message
- )
-end
 
 get "/help" do
 	"Send 'Y' if you need some help."
@@ -226,13 +331,4 @@ end
 
 error 403 do
 	"Access Forbidden"
-end
-
-# Code I'm probably not going to house
-get '/signup/:code' do
-	code = params[:code]
-	if params[:code] == "secure"
-		erb :views/signup
-	else 404
-	end
 end

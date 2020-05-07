@@ -213,9 +213,9 @@ end
 
 		elsif body== "start" or body== "new start" or body== "restart"
 			message =
-			greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation.\nWhat can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
+			greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation.\nWhat can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(L) learn more."
 		elsif body== "home"
-			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
+			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(L) learn more."
 
 		elsif body== "1"
 			message = sarcasm.sample + "You must really trust me or you’re very desperate, either way, I can help.\n Text the letter (C) and I’ll get to work \n(Home) Any time you need to come start at the beginning. \h(L) learn more. "
@@ -270,8 +270,8 @@ elsif body== "i"
 (L) learn more.	"
 		elsif body== "c"
 			message = "How would a " + product_service.sample + " Help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " +  positives.sample + ". Unlike" + companies.sample + ". Wow, that’s one of my best yet. I'll let you take it all in, if you need another one, just text the letter (C)
-			(B) to go back
-			(L) learn more."
+(B) to go back
+(L) learn more."
 
 
 

@@ -12,24 +12,21 @@ enable :sessions
 count = 0
 time = Time.now
 
-
-def greetings
-greetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
-end
+#greeting array step 2
 
 def product_service
 product_service = ["service,", "product,"]
 end
 
 def users_segement
- users_segement = ["teens", "elderly", "scholars", "drag queens", "plain janes", "average joes", "tesla owners"]
+users_segement = ["teens", "elderly", "scholars", "drag queens", "plain janes", "average joes", "tesla owners"]
 end
 
 def action
 action = ["be free", "access data", "learn", "visualize", "invest", "move faster", "explore"]
 end
 
- def product_service
+def product_service
 product_service = ["service", "product","future"]
 end
 
@@ -51,6 +48,12 @@ end
 
 def compandies
 companies = ["Slack", "Uber", "Apple"]
+end
+
+
+def greetings
+greetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
+end
 
 def sarcasm
 sarcasm = ["Wow.", "Exciting.", "I'm Excited.", "Joy."]
@@ -82,7 +85,7 @@ def get_commands
   return error_prompt + COMMANDS
 end
 
-# COMMANDS = " who, what, where, when or why."
+COMMANDS = " who, what, where, when or why."
 
 def laugh
 laugh = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I don't get it either"]
@@ -255,6 +258,7 @@ elsif body== "3" or body== "l"
 				message = "In a " + mood_examples.sample + " future,
 				 there is a " + object_examples.sample +
 				 " related to " + terrain_examples.sample + "what is it?"
+
 		elsif body== "s"
 			message = "How would a service help " + users_segement.sample +
 	"Who want to " + action.sample + "by" + limts.sample + negatives.sample +	"and"  + increasing.sample +  positives.sample +
@@ -299,7 +303,6 @@ elsif body== "i"
 		 message = "try asking text (start) or (home)"
 		end
 	end
-end
 
 
 

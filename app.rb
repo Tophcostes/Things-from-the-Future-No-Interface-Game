@@ -154,25 +154,25 @@ def determine_response body
 		joke_doc = IO.readlines("jokes.txt")
 		message = joke_doc.sample + "\n" + laugh.sample
 
-# --------------madlib bot flow
+		# --------------madlib bot flow
 
-elsif body== "start" or "restart"
-	send_sms_to sender = greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
-	sleep(1)
-	send_sms_to sender, "What can I help you with?\n
-(1) Generate a random design idea?\n
-(2) Use a specific design ideation framework?\n
-(3) See the sources page?\n
-(H) Any time you need to come back here \n
-(?) learn more."
+	elsif body== "start" or "restart"
+		message = greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
+		sleep(1)
+		message = "What can I help you with?\n
+		(1) Generate a random design idea?\n
+		(2) Use a specific design ideation framework?\n
+		(3) See the sources page?\n
+		(H) Any time you need to come back here \n
+		(?) learn more."
 	elsif body== "future"
 		# futures_examples = IO.readlines("futures_arc.txt")
 		terrain_examples = IO.readlines("terrain.txt")
 		object_examples = IO.readlines("object.txt")
 		mood_examples = IO.readlines("mood.txt")
 		message = "In a " + mood_examples.sample + " future,
-		 there is a " + object_examples.sample +
-		 " related to " + terrain_examples.sample + "what is it?"
+		there is a " + object_examples.sample +
+		" related to " + terrain_examples.sample + "what is it?"
 
 		# +"\n"+ laugh.sample
 		# elsif body== "facts"
@@ -183,7 +183,7 @@ elsif body== "start" or "restart"
 		# else
 		# 	message = "try asking who, what, where, when, why, or just say hi"
 	else
-	 message = "try asking who, what, where, when, why, or just say hi"
+		message = "try asking who, what, where, when, why, or just say hi"
 	end
 end
 

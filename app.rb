@@ -106,111 +106,87 @@ end
 
 
 get "/sms/incoming" do
+	session["counter"] ||= 0
+	count = session["counter"]
+	body = params[:Body] || ""
+	sender = params[:From] || ""
 
-  sender = params[:From] || ""
-  body = params[:Body] || ""
-
-  message = determine_response body, sender
-  media = nil
-
-  twiml = Twilio::TwiML::MessagingResponse.new do |r|
-    r.message do |m|
-      m.body( message )
-      unless media.nil?
-        m.media( media )
-      end
-    end
-  end
+	# if session["counter"] == 1
+	# 	message = "Thanks for your first message. From #{sender} saying #{body}"
+	# 	media = nil
+	if body == "test"
+		message = "This is Test"
+	else
+		message = determine_response body, sender
+		media = nil
 
 
-  content_type 'text/xml'
-  twiml.to_s
+		# Build a twilio response object
+		twiml = Twilio::TwiML::MessagingResponse.new do |r|
+			r.message do |m|
+				m.body(message)
+			end
+		end
+		session["counter"] += 1
 
+		content_type 'text/xml'
+		twiml.to_s
+
+	end
 end
-
-# def determine_response body, sender
-#
-#   body = body.downcase.strip
-#
-# 	if body == "hi"
-# 		message = greetings.sample + "I make the design process easier"
-# 	elsif body == "who"
-# 		message = "This is a bot to help you pick a design process"
-# 	elsif body== "what"
-# 		message = "You can ask me what design process to use"
-# 	elsif body== "where"
-# 		message = "I live in cyberspace"
-# 	elsif body== "when"
-# 		message = "I was made in spring 2020"
-# 	elsif body== "why"
-# 		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
-# 	elsif body== "joke"
-# 		joke_doc = IO.readlines("jokes.txt")
-# 		message = joke_doc.sample + "\n" + laugh.sample
-#
-# 		# --------------madlib bot flow
-#
-# 	elsif body== "start" or "restart"
-# 		send_sms_to sender, greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
-# 		sleep(1)
-# 		message = "What can I help you with?\n
-# 		(1) Generate a random design idea?\n
-# 		(2) Use a specific design ideation framework?\n
-# 		(3) See the sources page?\n
-# 		(H) Any time you need to come back here \n
-# 		(?) learn more."
-# 	elsif body== "future"
-# 		# futures_examples = IO.readlines("futures_arc.txt")
-# 		terrain_examples = IO.readlines("terrain.txt")
-# 		object_examples = IO.readlines("object.txt")
-# 		mood_examples = IO.readlines("mood.txt")
-# 		message = "In a " + mood_examples.sample + " future,
-# 		there is a " + object_examples.sample +
-# 		" related to " + terrain_examples.sample + "what is it?"
-#
-# 		# +"\n"+ laugh.sample
-# 		# elsif body== "facts"
-# 		# 	array_of_lines = IO.readlines("facts.txt")
-# 		# 	message = array_of_lines.sample\n + "Hard to believe I know"
-# 	elsif body== "Y"
-# 		message = "try asking who, what, where, when, why, or just say hi"
-# 		# else
-# 		# 	message = "try asking who, what, where, when, why, or just say hi"
-# 	else
-# 		message = "try asking who, what, where, when, why, or just say hi"
-# 	end
-# message
-# end
-# ​
 
 def determine_response body, sender
+	body = body.downcase.strip
 
-  body = body.downcase.strip
+	if body == "hi"
+		message = greetings.sample + "I make the design process easier"
+	elsif body == "who"
+		message = "This is a bot to help you pick a design process"
+	elsif body== "what"
+		message = "You can ask me what design process to use"
+	elsif body== "where"
+		message = "I live in cyberspace"
+	elsif body== "when"
+		message = "I was made in spring 2020"
+	elsif body== "why"
+		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
+	elsif body== "joke"
+		joke_doc = IO.readlines("jokes.txt")
+		message = joke_doc.sample + "\n" + laugh.sample
 
-  if body == "hi" or body == "hello" or body == "hey"
-      message = get_about_message
-  elsif body.include? "who"
-    # can i ask who made This
-    message = "I'm Daragh's MeBot"
-  elsif body == "what"
-      message = "I'm a bot that'll let you ask things about Daragh without bothering him."
-  elsif body == "why"
-    message = "He made me for this class. To show you how to make simple bots"
-  elsif body == "where"
-    message = "I'm on a server in the cloud.. But Daragh's in Pittsburgh"
-  elsif body == "when"
-    message = "I was made on Sept 14th. But Daragh is much older than that"
-  else
-		send_sms_to sender, "hmmmm...."
+		# --------------madlib bot flow
+
+	elsif body== "start" or "restart"
+		send_sms_to sender, greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
 		sleep(1)
-		send_sms_to sender, "I'm not sure I understood that"
-		sleep(3)
-    message = "You can ask me: who what when where or why."
-  end
+		message = "What can I help you with?\n
+		(1) Generate a random design idea?\n
+		(2) Use a specific design ideation framework?\n
+		(3) See the sources page?\n
+		(H) Any time you need to come back here \n
+		(?) learn more."
+	elsif body== "future"
+		# futures_examples = IO.readlines("futures_arc.txt")
+		terrain_examples = IO.readlines("terrain.txt")
+		object_examples = IO.readlines("object.txt")
+		mood_examples = IO.readlines("mood.txt")
+		message = "In a " + mood_examples.sample + " future,
+		there is a " + object_examples.sample +
+		" related to " + terrain_examples.sample + "what is it?"
 
-	message
+		# +"\n"+ laugh.sample
+		# elsif body== "facts"
+		# 	array_of_lines = IO.readlines("facts.txt")
+		# 	message = array_of_lines.sample\n + "Hard to believe I know"
+	elsif body== "Y"
+		message = "try asking who, what, where, when, why, or just say hi"
+	else
+		message = "try asking who, what, where, when, why, or just say hi"
+	end
 
 end
+​
+
 
 
 def send_sms_to send_to, message

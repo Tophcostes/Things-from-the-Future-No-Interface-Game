@@ -218,7 +218,9 @@ end
 			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(L) learn more."
 
 		elsif body== "1"
-			message = sarcasm.sample + "You must really trust me or you’re very desperate, either way, I can help.\n Text the letter (C) and I’ll get to work \n(Home) Any time you need to come start at the beginning. \h(L) learn more. "
+			message = sarcasm.sample + "You must really trust me or you’re very desperate, either way, I can help. Text the letter (C) and I’ll get to work
+(Home) Any time you need to come start at the beginning.
+(L) to learn more"
 		elsif body== "b" or body== "3"
 			message = "What kinda of design would you like to explore today? Text one of the following words:
 (Future) to generate a new scenarios for the soon to be.
@@ -233,45 +235,45 @@ http://situationlab.org/futurething-print-and-play-edition/
 https://www.interaction-design.org/literature/article/stage-2-in-the-design-thinking-process-define-the-problem-and-interpret-the-results
 (Home) Any time you need to come start at the beginning."
 	elsif body== "future"
-			message = sarcasm.sample + "The Thing From the Future is tool used for ideating ideas for futuring and design futures.
+			message = sarcasm.sample + " The Thing From the Future is tool used for ideating ideas for futuring and design futures.
 Text the letter (F) when you want to start
 (B) to go back
-(L) learn more."
+(L) to learn more"
 		elsif body== "service"
-			message = sarcasm.sample + "Services are notoriously complex, but having a framework for the service can really help.
+			message = sarcasm.sample + " Services are notoriously complex, but having a framework for the service can really help.
 Text the letter (S) when you want to start
 (B) to go back
-(L) learn more."
+(L) to learn more."
 		elsif body== "interaction"
-			message = sarcasm.sample + "Design thinking is one or the more well known design process, one step is defining the problem. While there are a few ways to who this, starting with a frame work is always helpful!
+			message = sarcasm.sample + " Design thinking is one or the more well known design process, one step is defining the problem. While there are a few ways to who this, starting with a frame work is always helpful!
 Text the letter (I) when you want to start
 (B) to go back
-(L) learn more."
+(L) to learn more."
 		elsif body== "challenge"
-			message = challenge_sarcasm.sample + "you must really trust me or you’re very desperate, either way, I can help.
+			message = challenge_sarcasm.sample + " you must really trust me or you’re very desperate, either way, I can help.
 Text the letter (C) and I’ll get to work
 (B) to go back
-(L) learn more."
+(L) to learn more."
 		elsif body== "f"
 				terrain_examples = IO.readlines("terrain.txt")
 				object_examples = IO.readlines("object.txt")
 				mood_examples = IO.readlines("mood.txt")
-				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "what is it?
+				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "pretty good right? If you need another, just text the letter (C)
 (B) to go back
-(L) learn more."
+(L) to learn more."
 
 		elsif body== "s"
 			message = "How would a service help " + users_segement.sample + " who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " + positives.sample + ", unline " + companies.sample + ". Wow, that’s one of my best yet. While you take it all in, if you need another one, just text the letter (C)
 (B) to go back
-(L) learn more."
+(L) to learn more."
 elsif body== "i"
 			message = "________ {users}needs to ________ {action}  because_________ {insight} If you need another one, just text the letter (I)
 (B) to go back
-(L) learn more.	"
+(L) to learn more.	"
 		elsif body== "c"
 			message = "How would a " + product_service.sample + " help " + users_segement.sample + " who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " +  positives.sample + ". Unlike " + companies.sample + ". Wow, that’s one of my best yet. I'll let you take it all in, if you need another one, just text the letter (C)
 (B) to go back
-(L) learn more."
+(L) to learn more."
 
 
 

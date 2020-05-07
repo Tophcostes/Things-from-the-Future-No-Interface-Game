@@ -212,7 +212,8 @@ end
 
 
 		elsif body== "start" or body== "new start" or body== "restart"
-			message = greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation.\nWhat can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
+			message = greetings.sample + "
+			I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation.\nWhat can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
 		elsif body== "home"
 			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(?) learn more."
 

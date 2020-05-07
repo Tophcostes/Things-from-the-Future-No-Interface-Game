@@ -258,7 +258,7 @@ Text the letter (C) and I’ll get to work
 				terrain_examples = IO.readlines("terrain.txt")
 				object_examples = IO.readlines("object.txt")
 				mood_examples = IO.readlines("mood.txt")
-				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "pretty good right? If you need another, just text the letter (C)
+				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "pretty good right? If you need another, just text the letter (F)
 (B) to go back
 (L) to learn more."
 

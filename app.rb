@@ -34,9 +34,9 @@ laugh = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I 
 end
 
 if time.hour > 10
-	greeting = ["Moring,"]
+	greetings = ["Moring,"]
 else
-	greeting = ["Hello!", "Hope all is well!","Salutations,"]
+	greetings = ["Hello!", "Hope all is well!","Salutations,"]
 end
 
 post '/signup/' do
@@ -153,6 +153,18 @@ def determine_response body
 	elsif body== "joke"
 		joke_doc = IO.readlines("jokes.txt")
 		message = joke_doc.sample + "\n" + laugh.sample
+
+# --------------madlib bot flow
+
+elsif body== "start" or "restart"
+	send_sms_to sender = greetings.sample + " I’m The Design Madlibs Bot {Beta}. Through me you can generate different design prompts for ideation."
+	sleep(1)
+	send_sms_to sender, "What can I help you with?\n
+(1) Generate a random design idea?\n
+(2) Use a specific design ideation framework?\n
+(3) See the sources page?\n
+(H) Any time you need to come back here \n
+(?) learn more."
 	elsif body== "future"
 		# futures_examples = IO.readlines("futures_arc.txt")
 		terrain_examples = IO.readlines("terrain.txt")

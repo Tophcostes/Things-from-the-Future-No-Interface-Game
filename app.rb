@@ -18,7 +18,7 @@ greetings = ["Morning,", "Hello!", "Hope all is well!", "Salutations,"]
 end
 
 def error_response
-  error_prompt = ["Sorry, I didn't get that.", "Hmm I don't know that word."].sample
+  error_prompt = ["Sorry, I didn't get that.", "Hmm I don't know that one."].sample
   error_prompt + "" + get_commands
 end
 
@@ -31,15 +31,6 @@ COMMANDS = " who, what, where, when or why."
 
 def laugh
 laugh = ["its funnier in binary", "Ask your dad, he'll probably get it", "....I don't get it either"]
-end
-
-
-get '/signup/:code' do
-	code = params[:code]
-	if params[:code] == "secure"
-		erb :views/signup
-	else 404
-	end
 end
 
 if time.hour > 10
@@ -86,7 +77,6 @@ get '/about' do
 	session["visits"] ||= 0 # Set the session to 0 if it hasn't been set before
 	session["visits"] = session["visits"] + 1  # adds one to the current value (increments)
 
-
 	if session[:first_name]
 		greetings.sample + "Good to see you again" + session[:first_name]
 	else
@@ -117,14 +107,16 @@ end
 
 get "/sms/incoming" do
 	session["counter"] ||= 0
-  count = session["counter"]
+	count = session["counter"]
 	body = params[:Body] || ""
 	sender = params[:From] || ""
 
 	# if session["counter"] == 1
 	# 	message = "Thanks for your first message. From #{sender} saying #{body}"
 	# 	media = nil
-	# else
+	if body == "test"
+		message = "This is Test"
+	else
 		message = determine_response body
 		media = nil
 
@@ -132,14 +124,15 @@ get "/sms/incoming" do
 		# Build a twilio response object
 		twiml = Twilio::TwiML::MessagingResponse.new do |r|
 			r.message do |m|
-		  	m.body(message)
+				m.body(message)
 			end
 		end
-	session["counter"] += 1
+		session["counter"] += 1
 
-	content_type 'text/xml'
-	twiml.to_s
+		content_type 'text/xml'
+		twiml.to_s
 
+	end
 end
 
 def determine_response body
@@ -156,7 +149,7 @@ def determine_response body
 	elsif body== "when"
 		message = "I was made in spring 2020"
 	elsif body== "why"
-		message = "___\n I was made because there are so\nmany design processes and choosing the right one can be a challenge"
+		message = "I was made because there are so many design processes and choosing the right one can be a challenge"
 	elsif body== "joke"
 		joke_doc = IO.readlines("jokes.txt")
 		message = joke_doc.sample + "\n" + laugh.sample
@@ -181,7 +174,6 @@ def determine_response body
 	 message = "try asking who, what, where, when, why, or just say hi"
 	end
 end
-
 
 
 get "/help" do
@@ -212,4 +204,13 @@ end
 
 error 403 do
 	"Access Forbidden"
+end
+
+# Code I'm probably not going to house
+get '/signup/:code' do
+	code = params[:code]
+	if params[:code] == "secure"
+		erb :views/signup
+	else 404
+	end
 end

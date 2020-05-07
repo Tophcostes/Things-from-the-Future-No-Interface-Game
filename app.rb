@@ -218,10 +218,10 @@ end
 			message = greetings.sample + " What can I help you with?\n(1) Generate a random design idea?\n(2) Use a specific design ideation framework?\n(3) See the sources page?\n(Home) Any time you need to come back here\n(L) learn more."
 
 		elsif body== "1"
-			message = sarcasm.sample + "You must really trust me or you’re very desperate, either way, I can help. Text the letter (C) and I’ll get to work
+			message = sarcasm.sample + " You must really trust me or you’re very desperate, either way, I can help. Text the letter (C) and I’ll get to work
 (Home) Any time you need to come start at the beginning.
 (L) to learn more"
-		elsif body== "b" or body== "3"
+elsif body== "b" or body== "2"
 			message = "What kinda of design would you like to explore today? Text one of the following words:
 (Future) to generate a new scenarios for the soon to be.
 (Service) to create a service design statement
@@ -258,7 +258,8 @@ Text the letter (C) and I’ll get to work
 				terrain_examples = IO.readlines("terrain.txt")
 				object_examples = IO.readlines("object.txt")
 				mood_examples = IO.readlines("mood.txt")
-				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + "pretty good right? If you need another, just text the letter (F)
+				message = "In a " + mood_examples.sample + "future, there is a " + object_examples.sample + "related to " + terrain_examples.sample + ". What is it?
+If you need another, just text the letter (F)
 (B) to go back
 (L) to learn more."
 

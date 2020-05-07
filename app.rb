@@ -261,7 +261,7 @@ Text the letter (C) and I’ll get to work
 (L) learn more."
 
 		elsif body== "s"
-			message = "How would a service help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + negatives.sample +	" and "  + increasing.sample +  positives.sample + " Unline " + companies.sample + " Wow, that’s one of my best yet. While you take it all in, if you need another one, just text the letter (C)
+			message = "How would a service help " + users_segement.sample + " who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " + positives.sample + ", unline " + companies.sample + ". Wow, that’s one of my best yet. While you take it all in, if you need another one, just text the letter (C)
 (B) to go back
 (L) learn more."
 elsif body== "i"
@@ -269,7 +269,7 @@ elsif body== "i"
 (B) to go back
 (L) learn more.	"
 		elsif body== "c"
-			message = "How would a " + product_service.sample + " Help " + users_segement.sample + " Who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " +  positives.sample + ". Unlike" + companies.sample + ". Wow, that’s one of my best yet. I'll let you take it all in, if you need another one, just text the letter (C)
+			message = "How would a " + product_service.sample + " help " + users_segement.sample + " who want to " + action.sample + " by " + limits.sample + " " + negatives.sample +	" and "  + increasing.sample + " " +  positives.sample + ". Unlike " + companies.sample + ". Wow, that’s one of my best yet. I'll let you take it all in, if you need another one, just text the letter (C)
 (B) to go back
 (L) learn more."
 

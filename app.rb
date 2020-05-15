@@ -268,7 +268,7 @@ If you need another, just text the letter (F)
 (B) to go back
 (L) to learn more."
 elsif body== "i"
-			message = "________ {users}needs to ________ {action}  because_________ {insight} If you need another one, just text the letter (I)
+			message = users_segement.sample + " needs to " + action.sample + " because "+ negatives.sample +" If you need another one, just text the letter (I)
 (B) to go back
 (L) to learn more.	"
 		elsif body== "c"
